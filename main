@@ -1,4 +1,3 @@
--- Services
 local TweenService = game:GetService("TweenService")
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
@@ -7,33 +6,26 @@ local CoreGui = game:GetService("CoreGui")
 
 local Player = Players.LocalPlayer
 
--- Configuration variables
 local AutoFarm = false
 local AntiAFK = false 
 local FarmSpeed = 20 
 local FarmMode = "Closest"
 local ResetWhenFullBag = true 
 local TeleportThreshold = 50
-local MinimizeKey = Enum.KeyCode.End -- Default minimize key bind configuration
-local AutoTpGun = false -- Automatic gun teleport tracking toggle
+local MinimizeKey = Enum.KeyCode.End
+local AutoTpGun = false
 
--- ESP Toggle Tracking Variables
 local ShowInnocent = false
 local ShowMurderer = false
 local ShowSheriff = false
 
--- Tracking variables
 local TotalCoinsCollected = 0
 local LastBagAmount = 0
 local ScriptStartTime = os.clock()
 local IsFirstCoin = true
 
--- System Logic Signals
 local FarmStateChanged = Instance.new("BindableEvent")
 
---------------------------------------------------------------------
--- UI INITIALIZATION
---------------------------------------------------------------------
 local WRLD_MM2_Premium = Instance.new("ScreenGui")
 WRLD_MM2_Premium.Name = ""
 WRLD_MM2_Premium.ResetOnSpawn = false
@@ -41,7 +33,6 @@ WRLD_MM2_Premium.IgnoreGuiInset = true
 WRLD_MM2_Premium.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 WRLD_MM2_Premium.ScreenInsets = Enum.ScreenInsets.DeviceSafeInsets
 
--- Safe Runtime Parenting
 local success, err = pcall(function()
 	WRLD_MM2_Premium.Parent = CoreGui:FindFirstChild("RobloxGui") or CoreGui
 end)
@@ -85,7 +76,6 @@ local UIPadding = Instance.new("UIPadding")
 UIPadding.PaddingTop = UDim.new(0, 15)
 UIPadding.Parent = SideBar
 
--- Dynamic String Obfuscation Loop
 task.spawn(function()
 	local glitchChars = {"%", "#", "@", "$", "^", "&", "*", "!", "?", "§", "Δ", "Ψ"}
 	while true do
@@ -98,7 +88,6 @@ task.spawn(function()
 	end
 end)
 
--- Player Name Display (Position 1)
 local TextLabel_1 = Instance.new("TextLabel")
 TextLabel_1.TextWrapped = true
 TextLabel_1.FontFace = Font.new("rbxasset://fonts/families/ComicNeueAngular.json", Enum.FontWeight.Medium, Enum.FontStyle.Normal)
@@ -111,7 +100,6 @@ TextLabel_1.BackgroundTransparency = 1
 TextLabel_1.LayoutOrder = 1
 TextLabel_1.Parent = SideBar
 
--- Divider Line (Position 2)
 local Frame = Instance.new("Frame")
 Frame.Size = UDim2.new(0, 130, 0, 1)
 Frame.BorderSizePixel = 0
@@ -119,7 +107,6 @@ Frame.BackgroundColor3 = Color3.new(0.14, 0.14, 0.14)
 Frame.LayoutOrder = 2
 Frame.Parent = SideBar
 
--- Main Active Content Frame
 local TabContainer = Instance.new("Frame")
 TabContainer.Name = "TabContainer"
 TabContainer.Size = UDim2.new(1, -150, 1, 0)
@@ -129,9 +116,6 @@ TabContainer.Parent = Main
 
 local tabsList = {}
 
---------------------------------------------------------------------
--- UI COMPONENT CREATION ENGINE
---------------------------------------------------------------------
 local function CreateTab(tabName, layoutOrder)
 	local TabBtn = Instance.new("TextButton")
 	TabBtn.Name = tabName .. "Btn"
@@ -466,15 +450,11 @@ local function AddPlayerScroller(parentTab, callback)
 	Players.PlayerRemoving:Connect(Refresh)
 end
 
---------------------------------------------------------------------
--- COMPONENT TREE GENERATION
---------------------------------------------------------------------
 local GeneralTab  = CreateTab("General", 3)   -- Position 3
 local TrollTab    = CreateTab("Troll", 4)     -- Position 4
 local AutofarmTab = CreateTab("Autofarm", 5)  -- Position 5
 local MiscTab     = CreateTab("Misc", 6)      -- Position 6
 
--- CORE TELEPORT & DYNAMIC SEARCH LOGIC
 local function FindGunDrop()
 	for _, object in ipairs(workspace:GetDescendants()) do
 		if object.Name == "GunDrop" or object.Name == "Gun Drop" then
@@ -497,7 +477,6 @@ local function TeleportToGunDrop()
 	end
 end
 
--- Controls inside General Tab
 AddToggle(GeneralTab, "Show Innocent Players", function(state)
 	ShowInnocent = state
 end)
@@ -516,7 +495,6 @@ AddToggle(GeneralTab, "🔄 Auto Teleport to Gun Drop", function(state)
 	AutoTpGun = state
 end)
 
--- Continuous Gun Loop Processing Thread
 task.spawn(function()
 	while true do
 		task.wait(0.05)
@@ -531,7 +509,6 @@ task.spawn(function()
 	end
 end)
 
--- ADVANCED FLING PHYSICS ENGINE
 local function BackendFling(targetPlayer)
 	if not targetPlayer or not targetPlayer.Character then return end
 	local targetRoot = targetPlayer.Character:FindFirstChild("HumanoidRootPart")
@@ -600,7 +577,6 @@ local function FlingSheriff()
 	end
 end
 
--- Controls inside Troll Tab
 AddButton(TrollTab, "⚡ Fling Murderer", FlingMurderer)
 AddButton(TrollTab, "🛡️ Fling Sheriff", FlingSheriff)
 AddStatBox(TrollTab, "🎯 Select Target Player To Fling:")
@@ -608,7 +584,6 @@ AddPlayerScroller(TrollTab, function(selectedPlayer)
 	BackendFling(selectedPlayer)
 end)
 
--- Controls inside Autofarm
 AddToggle(AutofarmTab, "Auto Farm Coins Master", function(state)
 	AutoFarm = state
 	FarmStateChanged:Fire(state)
@@ -628,7 +603,6 @@ end)
 local LiveStatsLabel = AddStatBox(AutofarmTab, "Coins Collected: 0")
 local LiveCPHLabel   = AddStatBox(AutofarmTab, "Estimated Coins/h: 0")
 
--- Controls inside Misc Tab
 AddToggle(MiscTab, "Anti-AFK Protection", function(state)
 	AntiAFK = state
 end)
@@ -637,7 +611,6 @@ AddKeybind(MiscTab, "Minimize UI Keybind", MinimizeKey, function(newKeycode)
 	MinimizeKey = newKeycode
 end)
 
--- Startup Visual Focus Selection
 local initialTab = nil
 for _, tab in pairs(tabsList) do
 	if tab.TargetOrder == 3 then
@@ -654,11 +627,6 @@ if initialTab then
 	initialTab.Button.UIStroke.Color = Color3.new(0.00, 0.67, 1.00)
 end
 
-------------------------------------------------------------------------
--- BACKEND EXPLOIT ENGINE
-------------------------------------------------------------------------
-
--- Central Minimize Input Capture Hook
 UserInputService.InputBegan:Connect(function(input, gameProcessed)
 	if gameProcessed then return end
 	if input.KeyCode == MinimizeKey then
@@ -666,7 +634,6 @@ UserInputService.InputBegan:Connect(function(input, gameProcessed)
 	end
 end)
 
--- Dynamic Role ESP Processing Engine
 task.spawn(function()
 	while true do
 		task.wait(0.5)
@@ -800,7 +767,6 @@ local function GetNextCoin(coinsArray, currentPosition)
 	end
 end
 
--- Server Bag Listeners
 local Remotes = game.ReplicatedStorage:WaitForChild("Remotes", 5)
 if Remotes then
 	local Gameplay = Remotes:WaitForChild("Gameplay", 5)
@@ -837,7 +803,6 @@ if Remotes then
 	end
 end
 
--- Statistics Thread Loop
 task.spawn(function()
 	while task.wait(1) do
 		LiveStatsLabel.Text = "Coins Collected: " .. tostring(TotalCoinsCollected)
@@ -849,7 +814,6 @@ task.spawn(function()
 	end
 end)
 
--- Anti-AFK Hook (Conditioned on Toggle)
 Player.Idled:Connect(function()
 	if not AntiAFK then return end
 	local VirtualUser = game:GetService("VirtualUser")
@@ -859,7 +823,6 @@ Player.Idled:Connect(function()
 	end)
 end)
 
--- Central Tween Processing Teleport Engine
 task.spawn(function()
 	local CurrentTween = nil
 
@@ -947,9 +910,6 @@ task.spawn(function()
 	end
 end)
 
---------------------------------------------------------------------
--- MODERN DRAG MECHANICS
---------------------------------------------------------------------
 local dragging, dragInput, dragStart, startPos
 
 local function update(input)
