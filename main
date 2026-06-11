@@ -544,39 +544,33 @@ local function BackendFling(targetPlayer)
 	local oldCFrame = localRoot.CFrame
 	local flingActive = true
 	
+	local bav = Instance.new("BodyAngularVelocity")
+	bav.MaxTorque = Vector3.new(math.huge, math.huge, math.huge)
+	bav.P = 125000
+	bav.AngularVelocity = Vector3.new(0, 99999, 0)
+	bav.Parent = localRoot
+	
 	localHum:ChangeState(Enum.HumanoidStateType.Physics)
 	
 	task.spawn(function()
 		local startTime = os.clock()
-		while flingActive and os.clock() - startTime < 4 do
+		while flingActive and os.clock() - startTime < 3.5 do
 			if not targetPlayer.Parent or not targetPlayer.Character or not targetRoot or not localRoot then break end
 			
-			-- Bypasses general protection systems by leaving the root solid while making elements non-collidable
-			for _, part in ipairs(localChar:GetDescendants()) do
-				if part:IsA("BasePart") then
-					if part.Name == "HumanoidRootPart" then
-						part.CanCollide = true
-					else
-						part.CanCollide = false
-					end
-				end
+			for _, part in ipairs(localChar:GetChildren()) do
+				if part:IsA("BasePart") then part.CanCollide = false end
 			end
 			
-			-- Modern Assembly vector sets override standard physics limitations
-			localRoot.AssemblyLinearVelocity = Vector3.new(999999, 999999, 999999)
-			localRoot.AssemblyAngularVelocity = Vector3.new(999999, 999999, 999999)
-			
-			-- Vector Position Swarm Jittering triggers registration overrides
-			local jitter = Vector3.new(math.random(-1, 1), math.random(-1, 1), math.random(-1, 1)) * 0.1
-			localRoot.CFrame = targetRoot.CFrame * CFrame.new(jitter)
-			
+			localRoot.CFrame = targetRoot.CFrame * CFrame.new(0, 0, 0)
+			localRoot.Velocity = Vector3.new(10000, 10000, 10000)
 			task.wait()
 		end
 		
 		flingActive = false
+		if bav then bav:Destroy() end
 		if localRoot then
-			localRoot.AssemblyLinearVelocity = Vector3.zero
-			localRoot.AssemblyAngularVelocity = Vector3.zero
+			localRoot.Velocity = Vector3.new(0, 0, 0)
+			localRoot.RotVelocity = Vector3.new(0, 0, 0)
 			localRoot.CFrame = oldCFrame
 		end
 		if localHum then
@@ -584,7 +578,6 @@ local function BackendFling(targetPlayer)
 		end
 	end)
 end
-
 local function FlingMurderer()
 	for _, p in ipairs(Players:GetPlayers()) do
 		if p == Player then continue end
