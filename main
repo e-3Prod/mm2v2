@@ -261,24 +261,14 @@ local function AddSlider(parentTab, text, min, max, default, callback)
 	Stroke.Color = Color3.fromRGB(35, 35, 35)
 
 	local Label = Instance.new("TextLabel", Frame)
-	Label.Size = UDim2.new(0.5, 0, 0, 22)
+	Label.Size = UDim2.new(0.8, 0, 0, 22)
 	Label.Position = UDim2.new(0, 12, 0, 4)
 	Label.BackgroundTransparency = 1
-	Label.Text = text
+	Label.Text = text .. ": " .. tostring(default)
 	Label.TextColor3 = Color3.fromRGB(220, 220, 220)
 	Label.TextSize = 14
 	Label.TextXAlignment = Enum.TextXAlignment.Left
-	Label.Font = Enum.Font.SourceSans
-
-	local ValueLabel = Instance.new("TextLabel", Frame)
-	ValueLabel.Size = UDim2.new(0.3, 0, 0, 22)
-	ValueLabel.Position = UDim2.new(1, -112, 0, 4)
-	ValueLabel.BackgroundTransparency = 1
-	ValueLabel.Text = tostring(default)
-	ValueLabel.TextColor3 = Color3.new(0.00, 0.67, 1.00)
-	ValueLabel.TextSize = 14
-	ValueLabel.TextXAlignment = Enum.TextXAlignment.Right
-	ValueLabel.Font = Enum.Font.SourceSansBold
+	Label.FontFace = Font.fromEnum(Enum.Font.Cartoon)
 
 	local SliderTrack = Instance.new("TextButton", Frame)
 	SliderTrack.Size = UDim2.new(1, -24, 0, 6)
@@ -306,7 +296,7 @@ local function AddSlider(parentTab, text, min, max, default, callback)
 		local unscaledVal = min + (relativeX * (max - min))
 		local finalValue = math.floor(unscaledVal + 0.5)
 
-		ValueLabel.Text = tostring(finalValue)
+		Label.Text = text .. ": " .. tostring(finalValue)
 		SliderFill.Size = UDim2.new(relativeX, 0, 1, 0)
 		SliderThump.Position = UDim2.new(relativeX, -6, 0.5, -6)
 		
@@ -582,6 +572,14 @@ AddSlider(GeneralTab, "Speed", 12, 100, 16, function(value)
 	end
 end)
 
+AddSlider(GeneralTab, "Jump Power", 25, 150, 50, function(value)
+	local character = Player.Character
+	local humanoid = character and character:FindFirstChildWhichIsA("Humanoid")
+	if humanoid then
+		humanoid.JumpPower = value
+	end
+end)
+
 AddToggle(GeneralTab, "ESP Innocent", function(state)
 	ShowInnocent = state
 end)
@@ -756,6 +754,32 @@ end)
 AddKeybind(MiscTab, "Minimize UI Keybind", MinimizeKey, function(newKeycode)
 	MinimizeKey = newKeycode
 end)
+
+AddButton(MiscTab, "❌ Destroy UI / Stop Scripts", DestroyUI)
+
+local function DestroyUI()
+    AutoFarm = false
+    FarmStateChanged:Fire(false)
+    BringAllLoop = false
+    AutoTpGun = false
+    ShowInnocent = false
+    ShowMurderer = false
+    ShowSheriff = false
+    
+    for _, player in ipairs(Players:GetPlayers()) do
+        if player.Character then
+            local tag = player.Character:FindFirstChild("Head") and player.Character.Head:FindFirstChild("RoleTag")
+            local highlight = player.Character:FindFirstChild("RoleHighlight")
+            if tag then tag:Destroy() end
+            if highlight then highlight:Destroy() end
+        end
+    end
+    
+    -- Destroy the ScreenGui entirely
+    if WRLD_MM2_Premium then
+        WRLD_MM2_Premium:Destroy()
+    end
+end
 
 local initialTab = nil
 for _, tab in pairs(tabsList) do
