@@ -23,6 +23,7 @@ local TotalCoinsCollected = 0
 local LastBagAmount = 0
 local ScriptStartTime = os.clock()
 local IsFirstCoin = true
+local LastGunTeleportCFrame = nil
 
 local FarmStateChanged = Instance.new("BindableEvent")
 
@@ -472,8 +473,20 @@ local function TeleportToGunDrop()
 	local gunPart = FindGunDrop()
 	local character = Player.Character
 	local rootPart = character and character:FindFirstChild("HumanoidRootPart")
+
 	if gunPart and rootPart then
+		LastGunTeleportCFrame = rootPart.CFrame
 		rootPart.CFrame = gunPart.CFrame
+
+		task.spawn(function()
+			repeat
+				task.wait(0.05)
+			until not FindGunDrop()
+
+			if rootPart and rootPart.Parent and LastGunTeleportCFrame then
+				rootPart.CFrame = LastGunTeleportCFrame
+			end
+		end)
 	end
 end
 
@@ -645,6 +658,8 @@ task.spawn(function()
 			local head = character and character:FindFirstChild("Head")
 			
 			if character and head then
+				local backpack = player.Backpack
+				if not bakcpack then continue end
 				local hasGun = player.Backpack:FindFirstChild("Gun") or character:FindFirstChild("Gun")
 				local hasKnife = player.Backpack:FindFirstChild("Knife") or character:FindFirstChild("Knife")
 				
