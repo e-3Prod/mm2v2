@@ -481,7 +481,7 @@ local function TeleportToGunDrop()
 
 		task.spawn(function()
 			repeat
-				task.wait(0.05)
+				task.wait(0.5)
 			until not FindGunDrop()
 
 			if rootPart and rootPart.Parent and LastGunTeleportCFrame then
