@@ -967,6 +967,11 @@ task.spawn(function()
 					if Character:IsA("Model") then
 						if Character:FindFirstChild("HumanoidRootPart") then
 							Character:PivotTo(MyChar.HumanoidRootPart.CFrame * CFrame.new(1.5, 0, 1.5))
+							for i, part in Character:GetDescendants() do
+								if part:IsA("BasePart") then
+									part.CanCollide = false
+								end
+							end
 						end
 					end
 				end
