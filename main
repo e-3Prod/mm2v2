@@ -14,7 +14,7 @@ local ResetWhenFullBag = true
 local TeleportThreshold = 50
 local MinimizeKey = Enum.KeyCode.End
 local AutoTpGun = false
-local BringAllLoop = false -- Controlled by the new toggle button
+local BringAllLoop = false
 
 local ShowInnocent = false
 local ShowMurderer = false
@@ -452,10 +452,10 @@ local function AddPlayerScroller(parentTab, callback)
 	Players.PlayerRemoving:Connect(Refresh)
 end
 
-local GeneralTab  = CreateTab("General", 3)   -- Position 3
-local TrollTab    = CreateTab("Troll", 4)     -- Position 4
-local AutofarmTab = CreateTab("Autofarm", 5)  -- Position 5
-local MiscTab     = CreateTab("Misc", 6)      -- Position 6
+local GeneralTab  = CreateTab("General", 3)
+local TrollTab    = CreateTab("Troll", 4)
+local AutofarmTab = CreateTab("Autofarm", 5)
+local MiscTab     = CreateTab("Misc", 6)
 
 local function FindGunDrop()
 	for _, object in ipairs(workspace:GetDescendants()) do
@@ -481,7 +481,7 @@ local function TeleportToGunDrop()
 
 		task.spawn(function()
 			repeat
-				task.wait(0.5)
+				task.wait(0.05)
 			until not FindGunDrop()
 
 			if rootPart and rootPart.Parent and LastGunTeleportCFrame then
@@ -501,10 +501,6 @@ end)
 
 AddToggle(GeneralTab, "Show Sheriff", function(state)
 	ShowSheriff = state
-end)
-
-AddToggle(GeneralTab, "Kill All Players", function(state)
-	BringAllLoop = state
 end)
 
 AddButton(GeneralTab, "🎯 Teleport to Gun Drop (1x)", TeleportToGunDrop)
@@ -539,40 +535,68 @@ local function BackendFling(targetPlayer)
 	local oldCFrame = localRoot.CFrame
 	local flingActive = true
 	
-	local bav = Instance.new("BodyAngularVelocity")
-	bav.MaxTorque = Vector3.new(math.huge, math.huge, math.huge)
-	bav.P = 125000
-	bav.AngularVelocity = Vector3.new(0, 99999, 0)
-	bav.Parent = localRoot
+	local bV = Instance.new("BodyVelocity")
+	bV.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
+	bV.Velocity = Vector3.new(99999, 99999, 99999)
+	bV.Parent = localRoot
+	
+	local bAV = Instance.new("BodyAngularVelocity")
+	bAV.MaxTorque = Vector3.new(math.huge, math.huge, math.huge)
+	bAV.P = 150000
+	bAV.AngularVelocity = Vector3.new(99999, 99999, 99999)
+	bAV.Parent = localRoot
 	
 	localHum:ChangeState(Enum.HumanoidStateType.Physics)
 	
 	task.spawn(function()
 		local startTime = os.clock()
-		while flingActive and os.clock() - startTime < 3.5 do
-			if not targetPlayer.Parent or not targetPlayer.Character or not targetRoot or not localRoot then break end
+		while flingActive and os.clock() - startTime < 3.0 do
+			if not targetPlayer.Parent or not targetPlayer.Character or not targetRoot or not localRoot or not localHum or localHum.Health <= 0 then break end
 			
-			for _, part in ipairs(localChar:GetChildren()) do
-				if part:IsA("BasePart") then part.CanCollide = false end
+			for _, part in ipairs(localChar:GetDescendants()) do
+				if part:IsA("BasePart") then 
+					part.CanCollide = false 
+				end
 			end
 			
-			localRoot.CFrame = targetRoot.CFrame * CFrame.new(0, 0, 0)
-			localRoot.Velocity = Vector3.new(10000, 10000, 10000)
+			local targetVelocity = targetRoot.Velocity
+			local predictionOffset = targetVelocity * 0.12
+			
+			local frameTick = (os.clock() * 50) % 4
+			local finalOffset = Vector3.new(0, 0, 0)
+			
+			if frameTick < 1 then
+				finalOffset = Vector3.new(1.2, 0, 1.2)
+			elseif frameTick < 2 then
+				finalOffset = Vector3.new(-1.2, 0, -1.2)
+			elseif frameTick < 3 then
+				finalOffset = Vector3.new(1.2, -0.5, -1.2)
+			else
+				finalOffset = Vector3.new(-1.2, 0.5, 1.2)
+			end
+			
+			localRoot.CFrame = CFrame.new(targetRoot.Position + predictionOffset + finalOffset)
+			
 			task.wait()
 		end
 		
 		flingActive = false
-		if bav then bav:Destroy() end
+		if bV then bV:Destroy() end
+		if bAV then bAV:Destroy() end
+		
 		if localRoot then
-			localRoot.Velocity = Vector3.new(0, 0, 0)
-			localRoot.RotVelocity = Vector3.new(0, 0, 0)
+			localRoot.Velocity = Vector3.zero
+			localRoot.RotVelocity = Vector3.zero
+			task.wait(0.05)
 			localRoot.CFrame = oldCFrame
 		end
+		
 		if localHum then
 			localHum:ChangeState(Enum.HumanoidStateType.Running)
 		end
 	end)
 end
+
 local function FlingMurderer()
 	for _, p in ipairs(Players:GetPlayers()) do
 		if p == Player then continue end
@@ -596,8 +620,11 @@ local function FlingSheriff()
 end
 
 AddButton(TrollTab, "⚡ Fling Murderer", FlingMurderer)
-
 AddButton(TrollTab, "🛡️ Fling Sheriff", FlingSheriff)
+
+AddToggle(TrollTab, "🌀 Bring All Loop", function(state)
+	BringAllLoop = state
+end)
 
 AddStatBox(TrollTab, "🎯 Select Target Player To Fling:")
 AddPlayerScroller(TrollTab, function(selectedPlayer)
@@ -940,11 +967,6 @@ task.spawn(function()
 					if Character:IsA("Model") then
 						if Character:FindFirstChild("HumanoidRootPart") then
 							Character:PivotTo(MyChar.HumanoidRootPart.CFrame * CFrame.new(1.5, 0, 1.5))
-							for i, part in pairs(Character:GetChildren()) do
-								if part:IsA("BasePart") then
-									part.CanCollide = false
-								end
-							end
 						end
 					end
 				end
