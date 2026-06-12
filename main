@@ -658,10 +658,11 @@ task.spawn(function()
 			local head = character and character:FindFirstChild("Head")
 			
 			if character and head then
-				local backpack = player.Backpack
-				if not bakcpack then continue end
-				local hasGun = player.Backpack:FindFirstChild("Gun") or character:FindFirstChild("Gun")
-				local hasKnife = player.Backpack:FindFirstChild("Knife") or character:FindFirstChild("Knife")
+				local backpack = player:FindFirstChild("Backpack") 
+				if not backpack then continue end
+				
+				local hasGun = backpack:FindFirstChild("Gun") or character:FindFirstChild("Gun")
+				local hasKnife = backpack:FindFirstChild("Knife") or character:FindFirstChild("Knife")
 				
 				local existingTag = head:FindFirstChild("RoleTag")
 				local existingHighlight = character:FindFirstChild("RoleHighlight")
@@ -669,24 +670,19 @@ task.spawn(function()
 				local targetedRole = "None"
 				local targetColor = Color3.fromRGB(255, 255, 255)
 				
-				if hasGun then
-					if ShowSheriff then
-						targetedRole = "Sheriff"
-						targetColor = Color3.fromRGB(0, 170, 255)
-					end
-				elseif hasKnife then
-					if ShowMurderer then
-						targetedRole = "Murderer"
-						targetColor = Color3.fromRGB(255, 0, 0)
-					end
-				else
-					if ShowInnocent then
-						targetedRole = "Innocent"
-						targetColor = Color3.fromRGB(0, 220, 100)
-					end
+				if hasGun and ShowSheriff then
+					targetedRole = "Sheriff"
+					targetColor = Color3.fromRGB(0, 170, 255)
+				elseif hasKnife and ShowMurderer then
+					targetedRole = "Murderer"
+					targetColor = Color3.fromRGB(255, 0, 0)
+				elseif not hasGun and not hasKnife and ShowInnocent then
+					targetedRole = "Innocent"
+					targetColor = Color3.fromRGB(0, 220, 100)
 				end
 				
 				if targetedRole ~= "None" then
+					-- Manage BillboardGui
 					if not existingTag then
 						local billboard = Instance.new("BillboardGui")
 						billboard.Name = "RoleTag"
@@ -714,6 +710,7 @@ task.spawn(function()
 						end
 					end
 					
+					-- Manage Highlight
 					if not existingHighlight then
 						local highlight = Instance.new("Highlight")
 						highlight.Name = "RoleHighlight"
