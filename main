@@ -491,19 +491,23 @@ local function TeleportToGunDrop()
 	end
 end
 
-AddToggle(GeneralTab, "Show Innocent Players", function(state)
+AddToggle(GeneralTab, "ESP Innocent", function(state)
 	ShowInnocent = state
 end)
 
-AddToggle(GeneralTab, "Show Murderer", function(state)
+AddToggle(GeneralTab, "ESP Murderer", function(state)
 	ShowMurderer = state
 end)
 
-AddToggle(GeneralTab, "Show Sheriff", function(state)
+AddToggle(GeneralTab, "ESP Sheriff", function(state)
 	ShowSheriff = state
 end)
 
-AddButton(GeneralTab, "🎯 Teleport to Gun Drop (1x)", TeleportToGunDrop)
+AddToggle(GeneralTab, "Kill Everyone (Murderer Only)", function(state)
+	BringAllLoop = state
+end)
+
+AddButton(GeneralTab, "🎯 Teleport to Gun Drop", TeleportToGunDrop)
 
 AddToggle(GeneralTab, "🔄 Auto Teleport to Gun Drop", function(state)
 	AutoTpGun = state
@@ -511,7 +515,7 @@ end)
 
 task.spawn(function()
 	while true do
-		task.wait(0.05)
+		task.wait(0.5)
 		if AutoTpGun then
 			local gunPart = FindGunDrop()
 			local character = Player.Character
@@ -622,21 +626,17 @@ end
 AddButton(TrollTab, "⚡ Fling Murderer", FlingMurderer)
 AddButton(TrollTab, "🛡️ Fling Sheriff", FlingSheriff)
 
-AddToggle(TrollTab, "🌀 Bring All Loop", function(state)
-	BringAllLoop = state
-end)
-
 AddStatBox(TrollTab, "🎯 Select Target Player To Fling:")
 AddPlayerScroller(TrollTab, function(selectedPlayer)
 	BackendFling(selectedPlayer)
 end)
 
-AddToggle(AutofarmTab, "Auto Farm Coins Master", function(state)
+AddToggle(AutofarmTab, "Autofarm Coins", function(state)
 	AutoFarm = state
 	FarmStateChanged:Fire(state)
 end)
 
-AddCycleButton(AutofarmTab, "Target Logic Mode", {"Closest", "Test v1", "Sequential", "Random"}, function(selectedMode)
+AddCycleButton(AutofarmTab, "Mode", {"Closest", "Test v1", "Sequential", "Random"}, function(selectedMode)
 	FarmMode = selectedMode
 end)
 
