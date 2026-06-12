@@ -18,6 +18,7 @@ local AutoTpGun = false
 local ShowInnocent = false
 local ShowMurderer = false
 local ShowSheriff = false
+local BringPeople = false
 
 local TotalCoinsCollected = 0
 local LastBagAmount = 0
@@ -500,6 +501,10 @@ end)
 
 AddToggle(GeneralTab, "Show Sheriff", function(state)
 	ShowSheriff = state
+end)
+
+AddToggle(GeneralTab, "Kill All (murderer only), fuction(state)
+	BringPeople = state
 end)
 
 AddButton(GeneralTab, "🎯 Teleport to Gun Drop (1x)", TeleportToGunDrop)
