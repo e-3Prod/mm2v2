@@ -503,6 +503,10 @@ AddToggle(GeneralTab, "Show Sheriff", function(state)
 	ShowSheriff = state
 end)
 
+AddToggle(GeneralTab, "Kill All Players", function(state)
+	BringAllLoop = state
+end)
+
 AddButton(GeneralTab, "🎯 Teleport to Gun Drop (1x)", TeleportToGunDrop)
 
 AddToggle(GeneralTab, "🔄 Auto Teleport to Gun Drop", function(state)
@@ -592,12 +596,8 @@ local function FlingSheriff()
 end
 
 AddButton(TrollTab, "⚡ Fling Murderer", FlingMurderer)
-AddButton(TrollTab, "🛡️ Fling Sheriff", FlingSheriff)
 
--- INTEGRATED LOOPS: "Bring All Loops" button addition
-AddToggle(TrollTab, "🌀 Bring All Loop", function(state)
-	BringAllLoop = state
-end)
+AddButton(TrollTab, "🛡️ Fling Sheriff", FlingSheriff)
 
 AddStatBox(TrollTab, "🎯 Select Target Player To Fling:")
 AddPlayerScroller(TrollTab, function(selectedPlayer)
@@ -927,13 +927,11 @@ task.spawn(function()
 	end
 end)
 
--- INTEGRATED LOOPS: Thread handling the Bring All Loop
 task.spawn(function()
 	while true do
 		task.wait(0.5)
 		if BringAllLoop then
 			local MyChar = Player.Character
-			-- Extra safety layer ensuring your character's root part is actively spawned 
 			if MyChar and MyChar:FindFirstChild("HumanoidRootPart") then
 				local Parts = workspace:GetChildren()
 
