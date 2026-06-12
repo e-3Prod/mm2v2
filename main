@@ -268,7 +268,7 @@ local function AddSlider(parentTab, text, min, max, default, callback)
 	Label.TextColor3 = Color3.fromRGB(220, 220, 220)
 	Label.TextSize = 14
 	Label.TextXAlignment = Enum.TextXAlignment.Left
-	Label.FontFace = Font.new("rbxasset://fonts/families/ComicNeueAngular.json", Enum.FontWeight.Medium)
+	Label.Font = Enum.Font.SourceSans
 
 	local ValueLabel = Instance.new("TextLabel", Frame)
 	ValueLabel.Size = UDim2.new(0.3, 0, 0, 22)
@@ -276,9 +276,9 @@ local function AddSlider(parentTab, text, min, max, default, callback)
 	ValueLabel.BackgroundTransparency = 1
 	ValueLabel.Text = tostring(default)
 	ValueLabel.TextColor3 = Color3.new(0.00, 0.67, 1.00)
-	ValueLabel.TextSize = 13
+	ValueLabel.TextSize = 14
 	ValueLabel.TextXAlignment = Enum.TextXAlignment.Right
-	ValueLabel.FontFace = Font.new("rbxasset://fonts/families/ComicNeueAngular.json", Enum.FontWeight.Bold)
+	ValueLabel.Font = Enum.Font.SourceSansBold
 
 	local SliderTrack = Instance.new("TextButton", Frame)
 	SliderTrack.Size = UDim2.new(1, -24, 0, 6)
