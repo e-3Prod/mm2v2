@@ -250,6 +250,89 @@ local function AddToggle(parentTab, text, callback)
 	end)
 end
 
+local function AddSlider(parentTab, text, min, max, default, callback)
+	local Frame = Instance.new("Frame")
+	Frame.Size = UDim2.new(0.94, 0, 0, 50)
+	Frame.BackgroundColor3 = Color3.fromRGB(22, 22, 22)
+	Frame.Parent = parentTab
+
+	Instance.new("UICorner", Frame).CornerRadius = UDim.new(0, 8)
+	local Stroke = Instance.new("UIStroke", Frame)
+	Stroke.Color = Color3.fromRGB(35, 35, 35)
+
+	local Label = Instance.new("TextLabel", Frame)
+	Label.Size = UDim2.new(0.5, 0, 0, 22)
+	Label.Position = UDim2.new(0, 12, 0, 4)
+	Label.BackgroundTransparency = 1
+	Label.Text = text
+	Label.TextColor3 = Color3.fromRGB(220, 220, 220)
+	Label.TextSize = 14
+	Label.TextXAlignment = Enum.TextXAlignment.Left
+	Label.FontFace = Font.new("rbxasset://fonts/families/ComicNeueAngular.json", Enum.FontWeight.Medium)
+
+	local ValueLabel = Instance.new("TextLabel", Frame)
+	ValueLabel.Size = UDim2.new(0.3, 0, 0, 22)
+	ValueLabel.Position = UDim2.new(1, -112, 0, 4)
+	ValueLabel.BackgroundTransparency = 1
+	ValueLabel.Text = tostring(default)
+	ValueLabel.TextColor3 = Color3.new(0.00, 0.67, 1.00)
+	ValueLabel.TextSize = 13
+	ValueLabel.TextXAlignment = Enum.TextXAlignment.Right
+	ValueLabel.FontFace = Font.new("rbxasset://fonts/families/ComicNeueAngular.json", Enum.FontWeight.Bold)
+
+	local SliderTrack = Instance.new("TextButton", Frame)
+	SliderTrack.Size = UDim2.new(1, -24, 0, 6)
+	SliderTrack.Position = UDim2.new(0, 12, 1, -14)
+	SliderTrack.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+	SliderTrack.Text = ""
+	Instance.new("UICorner", SliderTrack).CornerRadius = UDim.new(1, 0)
+
+	local SliderFill = Instance.new("Frame", SliderTrack)
+	SliderFill.Size = UDim2.new((default - min) / (max - min), 0, 1, 0)
+	SliderFill.BackgroundColor3 = Color3.new(0.00, 0.67, 1.00)
+	Instance.new("UICorner", SliderFill).CornerRadius = UDim.new(1, 0)
+
+	local SliderThump = Instance.new("Frame", SliderTrack)
+	SliderThump.Size = UDim2.new(0, 12, 0, 12)
+	SliderThump.Position = UDim2.new((default - min) / (max - min), -6, 0.5, -6)
+	SliderThump.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Instance.new("UICorner", SliderThump).CornerRadius = UDim.new(1, 0)
+	Instance.new("UIStroke", SliderThump).Color = Color3.new(0.00, 0.67, 1.00)
+
+	local isDragging = false
+
+	local function UpdateSliderValue(inputPosition)
+		local relativeX = math.clamp((inputPosition.X - SliderTrack.AbsolutePosition.X) / SliderTrack.AbsoluteSize.X, 0, 1)
+		local unscaledVal = min + (relativeX * (max - min))
+		local finalValue = math.floor(unscaledVal + 0.5)
+
+		ValueLabel.Text = tostring(finalValue)
+		SliderFill.Size = UDim2.new(relativeX, 0, 1, 0)
+		SliderThump.Position = UDim2.new(relativeX, -6, 0.5, -6)
+		
+		callback(finalValue)
+	end
+
+	SliderTrack.InputBegan:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+			isDragging = true
+			UpdateSliderValue(input.Position)
+		end
+	end)
+
+	UserInputService.InputChanged:Connect(function(input)
+		if isDragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
+			UpdateSliderValue(input.Position)
+		end
+	end)
+
+	UserInputService.InputEnded:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+			isDragging = false
+		end
+	end)
+end
+
 local function AddCycleButton(parentTab, labelText, options, onClickCallback)
 	local Frame = Instance.new("Frame")
 	Frame.Size = UDim2.new(0.94, 0, 0, 44)
@@ -491,6 +574,14 @@ local function TeleportToGunDrop()
 	end
 end
 
+AddSlider(GeneralTab, "Speed", 12, 100, 16, function(value)
+	local character = Player.Character
+	local humanoid = character and character:FindFirstChildWhichIsA("Humanoid")
+	if humanoid then
+		humanoid.WalkSpeed = value
+	end
+end)
+
 AddToggle(GeneralTab, "ESP Innocent", function(state)
 	ShowInnocent = state
 end)
@@ -511,6 +602,14 @@ AddButton(GeneralTab, "🎯 Teleport to Gun Drop", TeleportToGunDrop)
 
 AddToggle(GeneralTab, "🔄 Auto Teleport to Gun Drop", function(state)
 	AutoTpGun = state
+end)
+
+task.spawn(function()
+	Player.CharacterAdded:Connect(function(character)
+		local humanoid = character:WaitForChild("Humanoid")
+		local currentSpeed = 16
+		humanoid.WalkSpeed = currentSpeed
+	end)
 end)
 
 task.spawn(function()
