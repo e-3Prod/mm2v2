@@ -2,6 +2,8 @@ local PS = game:GetService("Players")
 local RS = game:GetService("RunService")
 local HS = game:GetService("HttpService")
 
+--yes
+
 function RoClothes(Player)
 	print("RoCC")
 	local GUIObject = {}
