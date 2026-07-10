@@ -1,3 +1,86 @@
+--[[	
+
+	/ ＲＯＣＬＯＴＨＥＳ
+	Version - 0.7.9:lerp()
+	Mod's Discord - discord.gg/k2HbJMY6Fr
+	Unknowing's Discord - discord.gg/HBzvWE6Rp3
+	
+	| This script requires a LOCAL folder "RClothesContent" to be added in ROBLOX's content folder, or it'll self-destruct itself
+	
+	| RoClothes is a Client-Sided Exploiting Script, that allows the player to have nude BodyParts/Clothes
+	Can be used on any executor
+	
+	| This script WILL cause FPS drops, because of BodyParts/Clothes meshes inside the Player model
+	
+	| 𝐔𝐒𝐄 𝐀𝐓 𝐘𝐎𝐔𝐑 𝐎𝐖𝐍 𝐑𝐈𝐒𝐊
+	| 𝐖𝐎𝐑𝐊 𝐈𝐍 𝐏𝐑𝐎𝐆𝐑𝐄𝐒𝐒
+	
+	The original developer of RoClothes is no longer working on this script.
+	This is a MODDED version of this script that might or might not be updated.
+	If you know who the creator of this mod is, feel free to make requests or suggest some things.
+	
+	
+	
+	original version 0.7
+	local version 0.7.9:lerp()
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+]]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 local PS = game:GetService("Players")
 local RS = game:GetService("RunService")
@@ -5,6 +88,50 @@ local HS = game:GetService("HttpService")
 
 function RoClothes(Player)
 	print("RoCC")
+
+	--[[
+	--------------------------------------------------------------------------------------------------------------
+	--------------------------------------------------------------------------------------------------------------
+	--------------------------------------------------------------------------------------------------------------
+	--------------------------------------------------------------------------------------------------------------
+	--------------------------------------------------------------------------------------------------------------
+	--------------------------------------------------------------------------------------------------------------
+	--------------------------------------------------------------------------------------------------------------
+	--------------------------------------------------------------------------------------------------------------
+	--------------------------------------------------------------------------------------------------------------
+	--------------------------------------------------------------------------------------------------------------
+	--------------------------------------------------------------------------------------------------------------
+	--------------------------------------------------------------------------------------------------------------
+	--------------------------------------------------------------------------------------------------------------
+	--------------------------------------------------------------------------------------------------------------
+	--------------------------------------------------------------------------------------------------------------
+	--------------------------------------------------------------------------------------------------------------
+
+                                      ██╗░░░░░░█████╗░░█████╗░░█████╗░██╗░░░░░
+                                      ██║░░░░░██╔══██╗██╔══██╗██╔══██╗██║░░░░░
+                                      ██║░░░░░██║░░██║██║░░╚═╝███████║██║░░░░░
+                                      ██║░░░░░██║░░██║██║░░██╗██╔══██║██║░░░░░
+                                      ███████╗╚█████╔╝╚█████╔╝██║░░██║███████╗
+                                      ╚══════╝░╚════╝░░╚════╝░╚═╝░░╚═╝╚══════╝
+                                  
+	--------------------------------------------------------------------------------------------------------------
+	--------------------------------------------------------------------------------------------------------------
+	--------------------------------------------------------------------------------------------------------------
+	--------------------------------------------------------------------------------------------------------------
+	--------------------------------------------------------------------------------------------------------------
+	--------------------------------------------------------------------------------------------------------------
+	--------------------------------------------------------------------------------------------------------------
+	--------------------------------------------------------------------------------------------------------------
+	--------------------------------------------------------------------------------------------------------------
+	--------------------------------------------------------------------------------------------------------------
+	--------------------------------------------------------------------------------------------------------------
+	--------------------------------------------------------------------------------------------------------------
+	--------------------------------------------------------------------------------------------------------------
+	--------------------------------------------------------------------------------------------------------------
+	--------------------------------------------------------------------------------------------------------------
+	--------------------------------------------------------------------------------------------------------------
+	]]
+
 	local GUIObject = {}
 
 	GUIObject.Screen = Instance.new("ScreenGui")
@@ -26,62 +153,9 @@ function RoClothes(Player)
 	GUIObject.UICorner_3 = Instance.new("UICorner")
 	GUIObject.DestroyButton = Instance.new("TextButton")
 	GUIObject.PlayerFrame = Instance.new("Frame")
-	GUIObject.PlayerListButton = Instance.new("TextButton")
-	GUIObject.POVButton = Instance.new("TextButton")
-	GUIObject.PlayerList = Instance.new("ScrollingFrame")
-	GUIObject.PlayerListLayout = Instance.new("UIListLayout")
 	GUIObject.UIGradient_4 = Instance.new("UIGradient")
 	GUIObject.UICorner_4 = Instance.new("UICorner")
 	GUIObject.PlayerExecute = Instance.new("TextBox")
-	GUIObject.PlayerListButton.Name = "PlayerListButton"
-	GUIObject.PlayerListButton.Parent = GUIObject.PlayerFrame
-	GUIObject.PlayerListButton.ZIndex = 1001
-	GUIObject.PlayerListButton.Active = true
-	GUIObject.PlayerListButton.AutoButtonColor = true
-	GUIObject.PlayerListButton.AnchorPoint = Vector2.new(1, 0.5)
-	GUIObject.PlayerListButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-	GUIObject.PlayerListButton.BackgroundTransparency = 0.7
-	GUIObject.PlayerListButton.Position = UDim2.new(1, -28, 0.5, 0)
-	GUIObject.PlayerListButton.Size = UDim2.new(0, 24, 0.8, 0)
-	GUIObject.PlayerListButton.Font = Enum.Font.Code
-	GUIObject.PlayerListButton.Text = "⋯"
-	GUIObject.PlayerListButton.TextColor3 = Color3.fromRGB(255,255,255)
-	GUIObject.PlayerListButton.TextScaled = true
-
-	GUIObject.POVButton.Name = "POVButton"
-	GUIObject.POVButton.Parent = GUIObject.PlayerFrame
-	GUIObject.POVButton.ZIndex = 1001
-	GUIObject.POVButton.Active = true
-	GUIObject.POVButton.AutoButtonColor = true
-	GUIObject.POVButton.AnchorPoint = Vector2.new(1, 0.5)
-	GUIObject.POVButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-	GUIObject.POVButton.BackgroundTransparency = 0.7
-	GUIObject.POVButton.Position = UDim2.new(1, -58, 0.5, 0)
-	GUIObject.POVButton.Size = UDim2.new(0, 28, 0.8, 0)
-	GUIObject.POVButton.Font = Enum.Font.Code
-	GUIObject.POVButton.Text = "POV"
-	GUIObject.POVButton.TextColor3 = Color3.fromRGB(255,255,255)
-	GUIObject.POVButton.TextScaled = true
-
-	GUIObject.PlayerList.Name = "PlayerList"
-	GUIObject.PlayerList.Parent = GUIObject.PlayerFrame
-	GUIObject.PlayerList.BackgroundColor3 = Color3.fromRGB(0,0,0)
-	GUIObject.PlayerList.BackgroundTransparency = 0.7
-	GUIObject.PlayerList.BorderSizePixel = 0
-	GUIObject.PlayerList.Position = UDim2.new(0, 0, 1.05, 0)
-	GUIObject.PlayerList.Size = UDim2.new(1, 0, 0.8, 0)
-	GUIObject.PlayerList.ScrollBarThickness = 6
-	GUIObject.PlayerList.Visible = false
-	GUIObject.PlayerList.AutomaticCanvasSize = Enum.AutomaticSize.Y
-	GUIObject.PlayerList.ZIndex = 1002
-	GUIObject.PlayerList.ClipsDescendants = false
-
-	GUIObject.PlayerListLayout.Name = "PlayerListLayout"
-	GUIObject.PlayerListLayout.Parent = GUIObject.PlayerList
-	GUIObject.PlayerListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-	GUIObject.PlayerListLayout.Padding = UDim.new(0, 2)
-	GUIObject.PlayerListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
-
 	GUIObject.BreastsTypeFrame = Instance.new("Frame")
 	GUIObject.UIGradient_5 = Instance.new("UIGradient")
 	GUIObject.UICorner_5 = Instance.new("UICorner")
@@ -438,7 +512,7 @@ function RoClothes(Player)
 	end
 	-- variables --
 	local hidden = true
-	
+
 	local Mouse = Player:GetMouse()
 
 	local Method2CharacterFolder = game.Workspace:FindFirstChild("Method2CharacterFolder")
@@ -465,7 +539,7 @@ function RoClothes(Player)
 	local hpKEYBIND = Enum.KeyCode.Equals
 	local dpKEYBIND = Enum.KeyCode.Minus
 	-- you probably shouldnt edit these --
-	
+
 	local maxFPersonMethod = 6
 	local KeybindDetect = false
 	local hpKeybindDetect = false
@@ -494,69 +568,6 @@ function RoClothes(Player)
 	local Debug = false
 
 	local SelectPlayer = Player.Name
-
-	local MultiTarget = nil -- "ALL" or "OTHERS" when user types those in the player box
-	local POVMode = false
-	local POVOriginalCameraSubject = nil
-	local POVOriginalCameraType = nil
-	local POVOriginalCameraCFrame = nil
-
-	local function updatePovButtonText()
-		if GUIObject.POVButton then
-			if POVMode then
-				GUIObject.POVButton.Text = "POV: "..tostring(SelectPlayer)
-			else
-				GUIObject.POVButton.Text = "POV"
-			end
-		end
-	end
-
-	local function disablePov()
-		local camera = workspace.CurrentCamera
-		if camera then
-			if POVOriginalCameraSubject then camera.CameraSubject = POVOriginalCameraSubject end
-			if POVOriginalCameraType then camera.CameraType = POVOriginalCameraType end
-			if POVOriginalCameraCFrame then camera.CFrame = POVOriginalCameraCFrame end
-		end
-		POVMode = false
-		POVOriginalCameraSubject = nil
-		POVOriginalCameraType = nil
-		POVOriginalCameraCFrame = nil
-		updatePovButtonText()
-	end
-
-	local function enablePov()
-		local camera = workspace.CurrentCamera
-		local targetPlayer = PS:FindFirstChild(SelectPlayer)
-		if not camera or not targetPlayer or not targetPlayer.Character then
-			disablePov()
-			return
-		end
-		local humanoid = targetPlayer.Character:FindFirstChildOfClass("Humanoid")
-		if not humanoid then
-			disablePov()
-			return
-		end
-		if not POVMode then
-			POVOriginalCameraSubject = camera.CameraSubject
-			POVOriginalCameraType = camera.CameraType
-			POVOriginalCameraCFrame = camera.CFrame
-			POVMode = true
-		end
-		camera.CameraSubject = humanoid
-		camera.CameraType = Enum.CameraType.Custom
-		local head = targetPlayer.Character:FindFirstChild("Head")
-		if head then
-			camera.CFrame = head.CFrame * CFrame.new(0, 0.5, 0)
-		end
-		updatePovButtonText()
-	end
-
-	local function updatePov()
-		if POVMode then
-			enablePov()
-		end
-	end
 
 	local DarkerColorPercentage = 17.75
 	local Darker2ColorPercentage = 32.75
@@ -11682,7 +11693,7 @@ function RoClothes(Player)
 		frame.BackgroundColor3 = Color3.fromRGB(0,0,0)
 		frame.BorderSizePixel = 0
 	end
-	
+
 	function Function.twitchEffect(ObjectInstance, Character, Extra, Data)
 		task.spawn(function()
 			repeat
@@ -12606,7 +12617,7 @@ function RoClothes(Player)
 	function Function.ShirtPop(Visible, Character, Data, Clothing)
 		local PData = PlayerData[Data]
 		if Visible == false then
-			
+
 		end
 	end
 
@@ -13375,7 +13386,7 @@ function RoClothes(Player)
 		end
 		return value,true
 	end
-	
+
 	function Function.toFormatString(value)
 		if typeof(value) == "Color3" then
 			return string.format("Color3.fromRGB(%s, %s, %s)", value.R * 255, value.G * 255, value.B * 255)
@@ -14010,7 +14021,7 @@ function RoClothes(Player)
 				end
 
 				ObjectInstance.Color = Color
-				
+
 				ObjectInstance.CanCollide = false
 				ObjectInstance.CanQuery = false
 				ObjectInstance.CanTouch = false
@@ -14021,7 +14032,7 @@ function RoClothes(Player)
 				ObjectInstance.Transparency = TRANSPARENCY
 				ObjectInstance.Reflectance = REFLECTANCE
 				ObjectInstance.Material = MATERIAL
-				
+
 				if Parent and not Function.IsParentNil(Parent) and not Function.FallenPartCheck(Parent) then
 					ObjectInstance.CFrame = Parent.CFrame
 				end
@@ -14261,7 +14272,7 @@ function RoClothes(Player)
 				CHandle.Size = HandleSize
 				CSpecialMesh.Scale = Scale
 			end
-			
+
 			CHandle.CanCollide = false
 			CHandle.CanQuery = false
 			CHandle.CanTouch = false
@@ -14270,7 +14281,7 @@ function RoClothes(Player)
 
 			CAccessory.Parent = Character
 			v:Destroy()
-			
+
 			CHandle.CFrame = CParentAttachment.Parent.CFrame
 			local Weld = Instance.new("Weld", CHandle)
 			Weld.Part0 = CHandle
@@ -14433,7 +14444,7 @@ function RoClothes(Player)
 					newHead.Reflectance = v.Reflectance
 					PlayerData[Data].CurrentPartList.Organ["Head"] = newHead
 					PlayerData[Data].CurrentPartList.TransparencyLink[newHead] = {T=v}
-					
+
 					newHead.CFrame = v.CFrame
 					local Weld = Instance.new("Weld", newHead)
 					Weld.Part0 = v
@@ -14500,7 +14511,7 @@ function RoClothes(Player)
 						newHead.Material = h.Material
 						newHead.Reflectance = h.Reflectance
 						PlayerData[Data].CurrentPartList.Organ["Head"] = newHead
-						
+
 						newHead.CFrame = h.CFrame
 						local Weld = Instance.new("Weld", newHead)
 						Weld.Part0 = h
@@ -14805,7 +14816,7 @@ function RoClothes(Player)
 					end
 				end
 			end
-			
+
 			if PartListPlayer.OriginalTransparency then
 				for i, v in pairs(PartListPlayer.OriginalTransparency) do
 					i.Transparency = v
@@ -15076,7 +15087,7 @@ function RoClothes(Player)
 					Part.Material = Enum.Material.SmoothPlastic
 					Part:SetAttribute("Visibility",1)
 					Part:AddTag("Visibility")
-					
+
 					Part.CFrame = BasePart.CFrame
 					local Weld = Instance.new("Weld", Part)
 					Weld.Part0 = BasePart
@@ -15185,7 +15196,7 @@ function RoClothes(Player)
 							Part.Massless = true
 							Part.CustomPhysicalProperties = PhysicalProperties.new(0.0001)
 							Part.Color = v.Color
-							
+
 							Part.CFrame = v.CFrame
 							local Weld = Instance.new("Weld", Part)
 							Weld.Part0 = v
@@ -18299,7 +18310,7 @@ function RoClothes(Player)
 					end
 				end
 			end
-			
+
 			for Part, Property in pairs(DataList.CurrentPartList.TransparencyLink) do
 				local Removed = false
 
@@ -18863,7 +18874,7 @@ function RoClothes(Player)
 	--------------------------------------------------------------------------------------------------------------
 	--------------------------------------------------------------------------------------------------------------
 	]]
-	
+
 	function Function.compileOvertime()
 		task.spawn(function()
 			local filesFound = env.listfiles("RClothesLerp/Bundles")
@@ -18905,7 +18916,7 @@ function RoClothes(Player)
 			end
 		end)
 	end
-	
+
 
 	local HPButtons = {}
 	function Function.GUIFunc()
@@ -19043,76 +19054,24 @@ function RoClothes(Player)
 		local ExecuteConnect = GUIObject.ExecuteButton.MouseButton1Click:Connect(function()
 			if debounce == false then
 				debounce = true
+				local ExecutePlayer = PS:FindFirstChild(SelectPlayer)
 
-				local function executeFor(pl)
-					if pl and pl.Character then
-						Function.CharacterReset(pl.Name)
-						Function.CharacterExecute(pl.Character, pl.Name)
+				if ExecutePlayer then
+					local ExecuteCharacter = ExecutePlayer.Character
+
+					if ExecuteCharacter then
+						Function.CharacterReset(ExecutePlayer.Name)
+						Function.CharacterExecute(ExecuteCharacter, ExecutePlayer.Name)
 					end
 				end
-
-				if MultiTarget == "ALL" then
-					for _, pl in pairs(PS:GetPlayers()) do
-						Function.PlayerDataAdd(pl.Name)
-						-- copy my (local player's) equipped bundle to each target
-						local myBundle = PlayerData[Player.Name].CurrentBundle
-						PlayerData[pl.Name].CurrentBundle = myBundle
-						if myBundle and myBundle ~= "nil" and Bundle[myBundle] then
-							local oldSelect = SelectPlayer
-							SelectPlayer = pl.Name
-							pcall(function() checkBundle(Bundle[myBundle]) end)
-							SelectPlayer = oldSelect
-						end
-						executeFor(pl)
-					end
-				elseif MultiTarget == "OTHERS" then
-					for _, pl in pairs(PS:GetPlayers()) do
-						if pl.Name ~= Player.Name then
-							Function.PlayerDataAdd(pl.Name)
-							local myBundle = PlayerData[Player.Name].CurrentBundle
-							PlayerData[pl.Name].CurrentBundle = myBundle
-							if myBundle and myBundle ~= "nil" and Bundle[myBundle] then
-								local oldSelect = SelectPlayer
-								SelectPlayer = pl.Name
-								pcall(function() checkBundle(Bundle[myBundle]) end)
-								SelectPlayer = oldSelect
-							end
-							executeFor(pl)
-						end
-					end
-				else
-					local ExecutePlayer = PS:FindFirstChild(SelectPlayer)
-					if ExecutePlayer and ExecutePlayer.Character then
-						executeFor(ExecutePlayer)
-					end
-				end
-
 				debounce = false
 			end
 		end)
 
 		local ResetConnect = GUIObject.ResetButton.MouseButton1Click:Connect(function()
-			if MultiTarget == "ALL" then
-				for _, pl in pairs(PS:GetPlayers()) do
-					Function.CharacterReset(pl.Name)
-					if Method2CharacterFolder:FindFirstChild(pl.Name) then
-						Method2CharacterFolder[pl.Name]:Destroy()
-					end
-				end
-			elseif MultiTarget == "OTHERS" then
-				for _, pl in pairs(PS:GetPlayers()) do
-					if pl.Name ~= Player.Name then
-						Function.CharacterReset(pl.Name)
-						if Method2CharacterFolder:FindFirstChild(pl.Name) then
-							Method2CharacterFolder[pl.Name]:Destroy()
-						end
-					end
-				end
-			else
-				Function.CharacterReset(SelectPlayer)
-				if Method2CharacterFolder:FindFirstChild(SelectPlayer) then
-					Method2CharacterFolder[SelectPlayer]:Destroy()
-				end
+			Function.CharacterReset(SelectPlayer)
+			if Method2CharacterFolder:FindFirstChild(SelectPlayer) then
+				Method2CharacterFolder[SelectPlayer]:Destroy()
 			end
 		end)
 
@@ -19129,41 +19088,19 @@ function RoClothes(Player)
 		end)
 
 		local PlayerChangeConnect = GUIObject.PlayerExecute:GetPropertyChangedSignal("Text"):Connect(function()
-			local txt = GUIObject.PlayerExecute.Text or ""
-			local ltxt = string.lower(txt)
-
-			if ltxt == "all" then
-				MultiTarget = "ALL"
-				SelectPlayer = Player.Name
-				GUIObject.PlayerExecute.TextColor3 = Color3.new(1,1,1)
-				Function.GUIUpdate()
-				disablePov()
-				return
-			elseif ltxt == "others" then
-				MultiTarget = "OTHERS"
-				SelectPlayer = Player.Name
-				GUIObject.PlayerExecute.TextColor3 = Color3.new(1,1,1)
-				Function.GUIUpdate()
-				disablePov()
-				return
-			end
-
-			MultiTarget = nil
-			if PS:FindFirstChild(txt) then
-				SelectPlayer = txt
+			if PS:FindFirstChild(GUIObject.PlayerExecute.Text) then
+				SelectPlayer = GUIObject.PlayerExecute.Text
 				GUIObject.PlayerExecute.TextColor3 = Color3.new(1,1,1)
 
 				Function.PlayerDataAdd(SelectPlayer)
 				Function.GUIUpdate()
-				updatePov()
-			elseif not PS:FindFirstChild(txt) and txt ~= "Self" then
+			elseif not PS:FindFirstChild(GUIObject.PlayerExecute.Text) and GUIObject.PlayerExecute.Text ~= "Self" then
 				GUIObject.PlayerExecute.TextColor3 = Color3.new(1,0,0)
-			elseif not PS:FindFirstChild(txt) and txt == "Self" then
+			elseif not PS:FindFirstChild(GUIObject.PlayerExecute.Text) and GUIObject.PlayerExecute.Text == "Self" then
 				SelectPlayer = Player.Name
 				GUIObject.PlayerExecute.TextColor3 = Color3.new(1,1,1)
 
 				Function.GUIUpdate()
-				updatePov()
 			end
 		end)
 
@@ -19590,7 +19527,7 @@ function RoClothes(Player)
 		local BundleButtons = {}
 		local ClothesButtons = {}
 		local RecolorButtons = {}
-		
+
 		local function convertTableToString(t,indent)
 			indent = indent or 0
 			local s = ""
@@ -19624,7 +19561,7 @@ function RoClothes(Player)
 			s = s .. convertTableToString(t, 1) .. "},"
 			return s
 		end
-		
+
 		local function checkBundle(v)
 
 			if v.ClearClothing and v.ClearClothing == true then
@@ -19764,7 +19701,7 @@ function RoClothes(Player)
 						warn(v.. " does not exist. Update your bundle!")
 						continue
 					end
-					
+
 					if Clothes[v].Blacklist then
 						for i, b in pairs(Clothes[v].Blacklist) do
 							if table.find(PlayerData[SelectPlayer].CurrentClothes, b) then
@@ -19924,51 +19861,25 @@ function RoClothes(Player)
 
 			local BBConnect = BButton:FindFirstChildOfClass("TextButton").MouseButton1Click:Connect(function()
 				if DetectingBundle == false then
-					if MultiTarget == "ALL" or MultiTarget == "OTHERS" then
-						for _, pl in pairs(PS:GetPlayers()) do
-							if MultiTarget == "OTHERS" and pl.Name == Player.Name then continue end
-							Function.PlayerDataAdd(pl.Name)
-							if BButton.Name == "nil" and PlayerData[pl.Name].CurrentBundle == "nil" then
-								Function.CharacterReset(pl.Name)
-								PlayerData[pl.Name] = Function.PlayerDataDefault()
-								-- avoid touching shared recolor UI when applying to multiple players
-								local btn = BButton:FindFirstChildOfClass("TextButton")
-								task.delay(0,function()
-									if btn then btn.Text = "CLEARED" end
-								end)
+					if BButton.Name == "nil" and PlayerData[SelectPlayer].CurrentBundle == "nil" then
+						Function.CharacterReset(SelectPlayer)
+						PlayerData[SelectPlayer] = Function.PlayerDataDefault()
+						for i, v in pairs(GUIObject.RecolorListFrame:GetChildren()) do
+							if v:IsA("Frame") then
+								v:Destroy()
 							end
-
-							if (not v.ClothingBundle or v.ClothingBundle == false) and (not v.IsPreset or v.IsPreset == false) then
-								PlayerData[pl.Name].CurrentBundle = BButton.Name
-							end
-
-							local oldSelect = SelectPlayer
-							SelectPlayer = pl.Name
-							pcall(function() checkBundle(v) end)
-							SelectPlayer = oldSelect
-						end
-					else
-						Function.PlayerDataAdd(SelectPlayer)
-						if BButton.Name == "nil" and PlayerData[SelectPlayer].CurrentBundle == "nil" then
-							Function.CharacterReset(SelectPlayer)
-							PlayerData[SelectPlayer] = Function.PlayerDataDefault()
-							for i, v in pairs(GUIObject.RecolorListFrame:GetChildren()) do
-								if v:IsA("Frame") then
-									v:Destroy()
-								end
-							end
-
-							task.delay(0,function()
-								BButton:FindFirstChildOfClass("TextButton").Text = "CLEARED"
-							end)
 						end
 
-						if (not v.ClothingBundle or v.ClothingBundle == false) and (not v.IsPreset or v.IsPreset == false) then
-							PlayerData[SelectPlayer].CurrentBundle = BButton.Name
-						end
-
-						checkBundle(v)
+						task.delay(0,function()
+							BButton:FindFirstChildOfClass("TextButton").Text = "CLEARED"
+						end)
 					end
+
+					if (not v.ClothingBundle or v.ClothingBundle == false) and (not v.IsPreset or v.IsPreset == false) then
+						PlayerData[SelectPlayer].CurrentBundle = BButton.Name
+					end
+
+					checkBundle(v)
 				elseif DetectingBundle == "loadup" then
 					DetectingBundle = false
 					GUIObject.Bundles.Visible = false
@@ -19982,9 +19893,9 @@ function RoClothes(Player)
 					DetectingBundle = false
 					GUIObject.Bundles.Visible = false
 					GUIObject.optionsFrame.Visible = true
-					
+
 					local exportString = toBundleFormat(v, BButton.Name)
-					
+
 					local successfulCopy = pcall(function()
 						if env.copy then
 							GUIObject.exportButton.Text = "Copied exported bundle!"
@@ -20054,7 +19965,7 @@ function RoClothes(Player)
 			end
 
 			local CBConnect = CButton:FindFirstChildOfClass("TextButton").MouseButton1Click:Connect(function()
-				Function.PlayerDataAdd(SelectPlayer)
+
 				if not table.find(PlayerData[SelectPlayer].CurrentClothes, CButton.Name) then
 					table.insert(PlayerData[SelectPlayer].CurrentClothes, CButton.Name)
 
@@ -20204,36 +20115,6 @@ function RoClothes(Player)
 			v.LayoutOrder = i
 		end
 
-		-- Live-apply helper: after a bundle or clothes button click, re-run CharacterExecute for the selected player
-		task.spawn(function()
-			for _, b in pairs(BundleButtons) do
-				local btn = b:FindFirstChildOfClass("TextButton")
-				if btn then
-					btn.MouseButton1Click:Connect(function()
-						task.wait(0.05)
-						if MultiTarget == nil then
-							local pl = PS:FindFirstChild(SelectPlayer)
-							if pl and pl.Character then
-								pcall(function() Function.CharacterExecute(pl.Character, SelectPlayer) end)
-							end
-						end
-					end)
-				end
-			end
-			for _, cbtn in pairs(ClothesButtons) do
-				local btn = cbtn:FindFirstChildOfClass("TextButton")
-				if btn then
-					btn.MouseButton1Click:Connect(function()
-						task.wait(0.05)
-						local pl = PS:FindFirstChild(SelectPlayer)
-						if pl and pl.Character then
-							pcall(function() Function.CharacterExecute(pl.Character, SelectPlayer) end)
-						end
-					end)
-				end
-			end
-		end)
-
 		for _, Button in pairs(GUIObject.CharacterFrame:GetChildren()) do
 			if Button:IsA("ImageButton") and PlayerData[SelectPlayer].LocalTransparency[Button.Name] ~= nil then
 				local LocalTransparencyConnect = Button.MouseButton1Click:Connect(function()
@@ -20258,121 +20139,6 @@ function RoClothes(Player)
 			PlayerData[SelectPlayer].FPerson = not PlayerData[SelectPlayer].FPerson
 
 			Function.GUIUpdate()
-		end)
-
-		-- Player list UI: populate players and allow selecting by click
-		local function refreshPlayerList()
-			for _, c in pairs(GUIObject.PlayerList:GetChildren()) do
-				if c:IsA("Frame") or c:IsA("TextButton") then
-					c:Destroy()
-				end
-			end
-
-			local refreshBtn = Instance.new("TextButton")
-			refreshBtn.Name = "RefreshPlayerList"
-			refreshBtn.Parent = GUIObject.PlayerList
-			refreshBtn.LayoutOrder = 0
-			refreshBtn.BackgroundColor3 = Color3.fromRGB(40, 0, 80)
-			refreshBtn.BackgroundTransparency = 0.3
-			refreshBtn.BorderSizePixel = 0
-			refreshBtn.Size = UDim2.new(1, 0, 0, 32)
-			refreshBtn.Font = Enum.Font.Code
-			refreshBtn.Text = "Refresh Players"
-			refreshBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-			refreshBtn.TextScaled = true
-			refreshBtn.ZIndex = 1003
-			refreshBtn.MouseButton1Click:Connect(refreshPlayerList)
-
-			for i, pl in pairs(PS:GetPlayers()) do
-				local btn = Instance.new("TextButton")
-				btn.Name = pl.Name
-				btn.Parent = GUIObject.PlayerList
-				btn.LayoutOrder = i + 1
-				btn.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-				btn.BackgroundTransparency = 0.7
-				btn.BorderSizePixel = 0
-				btn.Size = UDim2.new(1, 0, 0, 48)
-				btn.AutoButtonColor = true
-				btn.Text = ""
-				btn.ZIndex = 1003
-
-				local icon = Instance.new("ImageLabel")
-				icon.Name = "AvatarIcon"
-				icon.Parent = btn
-				icon.AnchorPoint = Vector2.new(0, 0.5)
-				icon.Position = UDim2.new(0, 8, 0.5, 0)
-				icon.Size = UDim2.new(0, 36, 0, 36)
-				icon.ScaleType = Enum.ScaleType.Fit
-				icon.BackgroundTransparency = 1
-				icon.Image = "rbxthumb://type=AvatarHeadShot&id="..pl.UserId.."&w=48&h=48"
-
-				local nameLabel = Instance.new("TextLabel")
-				nameLabel.Name = "PlayerDisplayName"
-				nameLabel.Parent = btn
-				nameLabel.AnchorPoint = Vector2.new(0, 0)
-				nameLabel.Position = UDim2.new(0, 54, 0, 6)
-				nameLabel.Size = UDim2.new(1, -62, 0, 18)
-				nameLabel.BackgroundTransparency = 1
-				nameLabel.Font = Enum.Font.Code
-				nameLabel.Text = pl.DisplayName
-				nameLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-				nameLabel.TextSize = 16
-				nameLabel.TextXAlignment = Enum.TextXAlignment.Left
-				nameLabel.TextYAlignment = Enum.TextYAlignment.Top
-
-				local usernameLabel = Instance.new("TextLabel")
-				usernameLabel.Name = "PlayerUsername"
-				usernameLabel.Parent = btn
-				usernameLabel.AnchorPoint = Vector2.new(0, 0)
-				usernameLabel.Position = UDim2.new(0, 54, 0, 24)
-				usernameLabel.Size = UDim2.new(1, -62, 0, 16)
-				usernameLabel.BackgroundTransparency = 1
-				usernameLabel.Font = Enum.Font.Code
-				usernameLabel.Text = pl.Name
-				usernameLabel.TextColor3 = Color3.fromRGB(190, 190, 190)
-				usernameLabel.TextSize = 14
-				usernameLabel.TextXAlignment = Enum.TextXAlignment.Left
-				usernameLabel.TextYAlignment = Enum.TextYAlignment.Top
-
-				btn.MouseButton1Click:Connect(function()
-					MultiTarget = nil
-					SelectPlayer = pl.Name
-					GUIObject.PlayerExecute.Text = pl.Name
-					Function.PlayerDataAdd(SelectPlayer)
-					Function.GUIUpdate()
-					updatePov()
-					GUIObject.PlayerList.Visible = false
-				end)
-			end
-		end
-
-		GUIObject.POVButton.MouseButton1Click:Connect(function()
-			if POVMode then
-				disablePov()
-			else
-				enablePov()
-			end
-		end)
-
-		GUIObject.PlayerListButton.MouseButton1Click:Connect(function()
-			GUIObject.PlayerList.Visible = not GUIObject.PlayerList.Visible
-			if GUIObject.PlayerList.Visible then
-				local absPos = GUIObject.PlayerFrame.AbsolutePosition
-				local absSize = GUIObject.PlayerFrame.AbsoluteSize
-				GUIObject.PlayerList.Parent = GUIObject.Screen
-				local viewportHeight = workspace.CurrentCamera and workspace.CurrentCamera.ViewportSize.Y or 1080
-				local maxHeight = math.max(32, math.min(absSize.Y * 8, viewportHeight - absPos.Y - 20))
-				GUIObject.PlayerList.Position = UDim2.new(0, absPos.X, 0, absPos.Y + absSize.Y)
-				GUIObject.PlayerList.Size = UDim2.new(0, absSize.X, 0, maxHeight)
-				refreshPlayerList()
-			end
-		end)
-
-		PS.PlayerAdded:Connect(function()
-			if GUIObject.PlayerList.Visible then refreshPlayerList() end
-		end)
-		PS.PlayerRemoving:Connect(function()
-			if GUIObject.PlayerList.Visible then refreshPlayerList() end
 		end)
 
 		local GravityConnect = GUIObject.GravityButton.MouseButton1Click:Connect(function()
@@ -20646,7 +20412,7 @@ function RoClothes(Player)
 							end
 							return str
 						end
-						
+
 						local allBundlesSuccess = true
 						local s, ouput = pcall(function()
 							for name, input in pairs(ouput) do
@@ -20727,24 +20493,11 @@ function RoClothes(Player)
 								table.insert(BundleButtons, BButton)
 								local BBConnect = BButton:FindFirstChildOfClass("TextButton").MouseButton1Click:Connect(function()
 									if DetectingBundle == false then
-										if MultiTarget == "ALL" or MultiTarget == "OTHERS" then
-											for _, pl in pairs(PS:GetPlayers()) do
-												if MultiTarget == "OTHERS" and pl.Name == Player.Name then continue end
-												Function.PlayerDataAdd(pl.Name)
-												if (not input.ClothingBundle or input.ClothingBundle == false) and (not input.IsPreset or input.IsPreset == false) then
-													PlayerData[pl.Name].CurrentBundle = BButton.Name
-												end
-												local oldSelect = SelectPlayer
-												SelectPlayer = pl.Name
-												pcall(function() checkBundle(input) end)
-												SelectPlayer = oldSelect
-											end
-										else
-											if (not input.ClothingBundle or input.ClothingBundle == false) and (not input.IsPreset or input.IsPreset == false) then
-												PlayerData[SelectPlayer].CurrentBundle = BButton.Name
-											end
-											checkBundle(input)
+										if (not input.ClothingBundle or input.ClothingBundle == false) and (not input.IsPreset or input.IsPreset == false) then
+											PlayerData[SelectPlayer].CurrentBundle = BButton.Name
 										end
+
+										checkBundle(input)
 
 										Function.GUIUpdate()
 									elseif DetectingBundle == "loadup" then
@@ -21168,9 +20921,6 @@ function RoClothes(Player)
 	GUIObject.PlayerFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	GUIObject.PlayerFrame.Position = UDim2.new(0.5, 0, 0.025, 0)
 	GUIObject.PlayerFrame.Size = UDim2.new(0.891309202, 0, 0.0646399707, 0)
-	GUIObject.PlayerFrame.ZIndex = 1000
-	GUIObject.PlayerFrame.ClipsDescendants = false
-	GUIObject.PlayerFrame.ZIndex = 1000
 
 	GUIObject.UIGradient_4.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(54, 0, 54)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(100, 0, 100))}
 	GUIObject.UIGradient_4.Rotation = -90
@@ -21193,7 +20943,6 @@ function RoClothes(Player)
 	GUIObject.PlayerExecute.TextSize = 14.000
 	GUIObject.PlayerExecute.TextStrokeColor3 = Color3.fromRGB(255, 255, 255)
 	GUIObject.PlayerExecute.TextWrapped = true
-	GUIObject.PlayerExecute.ZIndex = 1
 
 	GUIObject.BreastsTypeFrame.Name = "BreastsTypeFrame"
 	GUIObject.BreastsTypeFrame.Parent = GUIObject.Menu
@@ -23790,3 +23539,4 @@ else
 	end
 end
 return nil
+
